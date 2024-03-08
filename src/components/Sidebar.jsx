@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 function Sidebar() {
+
+  const [sidenav, setSidenav] = useState(true);
+
+  useEffect(() => {
+    // Ocultar el Sidebar por defecto en dispositivos pequeños
+    const isSmallScreen = window.innerWidth <= 640;
+    setSidenav(!isSmallScreen);
+  }, []);
+
+  const handleToggleSidebar = () => {
+    setSidenav(!sidenav);
+  };
+
   return (
 <body class="font-poppins antialiased">
     <div
@@ -9,32 +22,34 @@ function Sidebar() {
       x-data="{ sidenav: true }"
     >
       <button
+        onClick={handleToggleSidebar}
         className="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500 focus:bg-teal-500 focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden"
       >
         <svg
-          class="w-5 h-5 fill-current"
+          className="w-5 h-5 fill-current"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clip-rule="evenodd"
+            clipRule="evenodd"
           ></path>
         </svg>
       </button>
       <div
         id="sidebar"
-        class="bg-white h-screen md:block shadow-xl px-3 w-1/4 md:w-60 lg:w-60 transition-transform duration-300 ease-in-out"
-        x-show="sidenav"
+        className={`bg-white h-screen md:block shadow-xl px-3 w-30 md:w-60 lg:w-60 overflow-x-hidden transition-transform duration-300 ease-in-out ${
+          sidenav ? 'transform translate-x-0' : 'transform -translate-x-full'
+        }`}
       >
         <div class="space-y-6 md:space-y-10 mt-10">
           <h1 class="font-bold text-4xl text-center md:hidden">
             D<span class="text-teal-600">.</span>
           </h1>
           <h1 class="hidden md:block font-bold text-sm md:text-xl text-center">
-            Dashwind<span class="text-teal-600">.</span>
+            Dear<span class="text-teal-600">.</span>
           </h1>
           <div id="profile" class="space-y-3">
             <img

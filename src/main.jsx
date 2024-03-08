@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        element: <h1>Noticias</h1>, // Componente para el layout de noticias
+        element: <h1>Noticias</h1>,
         children: [
           {
             index: true,
