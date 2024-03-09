@@ -4,6 +4,8 @@ import './index.css';
 import { createBrowserRouter, RouterProvider} from 'react-router-dom';
 import Login from './pages/Login';
 import Layout from './components/Layout';
+import Admin from './pages/Admin';
+
 
 const router = createBrowserRouter([
   {
@@ -15,15 +17,13 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        element: <h1>Noticias</h1>,
         children: [
           {
-            index: true,
-            element: <h1>Hola desde la página de noticias principal</h1>,
+            index: true
           },
           {
-            path: 'clients',
-            element: <h1>Hola 2 desde la página de clientes</h1>,
+            path: '/home/admin',
+            element: <Admin />,
           },
         ],
       },
