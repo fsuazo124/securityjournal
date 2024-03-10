@@ -1,6 +1,30 @@
-import React from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState({});
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post('http://localhost:3000/sj/api/auth', {
+        user_name: username,
+        password: password
+      });
+  
+      console.log(res);
+  
+      if (res.status === 200) {
+        window.location.href = '/home';
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <header>
@@ -21,54 +45,57 @@ function Login() {
           </div>
         </nav>
       </header>
-      <div class="h-screen flex">
+      <div className="h-screen flex">
         <div
-          class="hidden lg:flex w-full lg:w-1/2 bg-green-800
+          className="hidden lg:flex w-full lg:w-1/2 bg-green-800
           justify-around items-center"
         >
           <div
-            class=" 
+            className=" 
                   bg-black 
                   opacity-20 
                   inset-0 
                   z-0"
           ></div>
 
-          <div class="w-full mx-auto px-20 flex-col items-center space-y-6">
+          <div className="w-full mx-auto px-20 flex-col items-center space-y-6">
             <img
               src="/src/assets/ayr_white.png"
               alt="Grupo AyR "
               className="w-28 mx-2"
             />
-            <h1 class="text-white font-bold text-4xl font-sans">
+            <h1 className="text-white font-bold text-4xl font-sans">
               Seguridad y Validación
             </h1>
-            <p class="text-white mt-1">
+            <p className="text-white mt-1">
               Registro de novedades, accesos y entrada/salida de personal
             </p>
-            <div class="flex justify-center lg:justify-start mt-6">
+            <div className="flex justify-center lg:justify-start mt-6">
               <a
                 href="#"
-                class="hover:bg-indigo-700 hover:text-white hover:-translate-y-1 transition-all duration-500 bg-white text-indigo-800 mt-4 px-4 py-2 rounded-2xl font-bold mb-2"
+                className="hover:bg-indigo-700 hover:text-white hover:-translate-y-1 transition-all duration-500 bg-white text-indigo-800 mt-4 px-4 py-2 rounded-2xl font-bold mb-2"
               >
                 Comenzemos
               </a>
             </div>
           </div>
         </div>
-        <div class="flex w-full lg:w-1/2 justify-center items-center bg-white space-y-8">
-          <div class="w-full px-8 md:px-32 lg:px-24">
-            <form class="bg-white rounded-md shadow-2xl p-5">
-              <h1 class="text-gray-800 font-bold text-2xl mb-1">
+        <div className="flex w-full lg:w-1/2 justify-center items-center bg-white space-y-8">
+          <div className="w-full px-8 md:px-32 lg:px-24">
+            <form
+              className="bg-white rounded-md shadow-2xl p-5"
+              onSubmit={handleSubmit}
+            >
+              <h1 className="text-gray-800 font-bold text-2xl mb-1">
                 ¡Bienvenido de nuevo!
               </h1>
-              <p class="text-sm font-normal text-gray-600 mb-8">
+              <p className="text-sm font-normal text-gray-600 mb-8">
                 Digita tus credenciales de acceso
               </p>
-              <div class="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+              <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-gray-400"
+                  className="h-5 w-5 text-gray-400"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -77,16 +104,19 @@ function Login() {
                 </svg>
                 <input
                   id="username"
-                  class=" pl-2 w-full outline-none border-none"
+                  className=" pl-2 w-full outline-none border-none"
                   type="text"
                   name="username"
+                  autoComplete="username"
                   placeholder="Nombre de usuario"
+                  value={username}
+                  onChange={(e) => setUserName(e.target.value)}
                 />
               </div>
-              <div class="flex items-center border-2 mb-12 py-2 px-3 rounded-2xl ">
+              <div className="flex items-center border-2 mb-12 py-2 px-3 rounded-2xl ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-gray-400"
+                  className="h-5 w-5 text-gray-400"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -97,26 +127,38 @@ function Login() {
                   />
                 </svg>
                 <input
-                  class="pl-2 w-full outline-none border-none"
+                  className="pl-2 w-full outline-none border-none"
                   type="password"
                   name="password"
                   id="password"
+                  autoComplete="username"
                   placeholder="Contraseña"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <button
                 type="submit"
-                class="block w-full bg-green-700 mt-5 py-2 rounded-2xl hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2"
+                className="block w-full bg-green-700 mt-5 py-2 rounded-2xl hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2"
               >
-                Inicia Sesión
+                <Link
+                  className={`${
+                    location.pathname === "/inicio"
+                      ? ""
+                      : ""
+                  }`}
+                  to="home"
+                >
+                  Inicia Sesión
+                </Link>
               </button>
-              <div class="flex justify-between mt-4">
-                <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all">
+              <div className="flex justify-between mt-4">
+                <span className="text-sm ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all">
                   ¿Has olvidado tu contraseña?
                 </span>
                 <a
                   href="#"
-                  class="text-sm ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all"
+                  className="text-sm ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all"
                 >
                   ¿Aún no tienes una cuenta?
                 </a>
@@ -125,25 +167,25 @@ function Login() {
           </div>
         </div>
       </div>
-      <footer class="bg-white dark:bg-gray-950">
-        <div class="container px-6 py-8 mx-auto">
-          <div class="flex flex-col items-center text-center">
-            <p class="max-w-md mx-auto mt-4 text-gray-500 dark:text-gray-400">
+      <footer className="bg-white dark:bg-gray-950">
+        <div className="container px-6 py-8 mx-auto">
+          <div className="flex flex-col items-center text-center">
+            <p className="max-w-md mx-auto mt-4 text-gray-500 dark:text-gray-400">
               Grupo AyR, Colonia San Miguel, frente a Molinos de Honduras,
               Comayagua, Honduras
             </p>
           </div>
-          <hr class="my-10 border-gray-200 dark:border-gray-700" />
+          <hr className="my-10 border-gray-200 dark:border-gray-700" />
 
-          <div class="flex flex-col items-center sm:flex-row sm:justify-between">
-            <p class="text-sm text-gray-500">
+          <div className="flex flex-col items-center sm:flex-row sm:justify-between">
+            <p className="text-sm text-gray-500">
               © Copyright 2024. All Rights Reserved.
             </p>
 
-            <div class="flex mt-3 -mx-2 sm:mt-0">
+            <div className="flex mt-3 -mx-2 sm:mt-0">
               <a
                 href="#"
-                class="mx-2 text-sm text-gray-500 transition-colors duration-300 hover:text-gray-500 dark:hover:text-gray-300"
+                className="mx-2 text-sm text-gray-500 transition-colors duration-300 hover:text-gray-500 dark:hover:text-gray-300"
                 aria-label="Reddit"
               >
                 {" "}
@@ -152,7 +194,7 @@ function Login() {
 
               <a
                 href="#"
-                class="mx-2 text-sm text-gray-500 transition-colors duration-300 hover:text-gray-500 dark:hover:text-gray-300"
+                className="mx-2 text-sm text-gray-500 transition-colors duration-300 hover:text-gray-500 dark:hover:text-gray-300"
                 aria-label="Reddit"
               >
                 {" "}
@@ -161,7 +203,7 @@ function Login() {
 
               <a
                 href="#"
-                class="mx-2 text-sm text-gray-500 transition-colors duration-300 hover:text-gray-500 dark:hover:text-gray-300"
+                className="mx-2 text-sm text-gray-500 transition-colors duration-300 hover:text-gray-500 dark:hover:text-gray-300"
                 aria-label="Reddit"
               >
                 {" "}
