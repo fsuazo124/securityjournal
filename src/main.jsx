@@ -1,41 +1,44 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import { createBrowserRouter, RouterProvider} from 'react-router-dom';
-import Login from './pages/Login';
-import Layout from './components/Layout';
-import Admin from './pages/Admin';
-import Dashboard from './pages/Dashboard';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Login from "./pages/Login";
+import Layout from "./components/Layout";
+import Admin from "./pages/Admin";
+import Dashboard from "./pages/Dashboard";
+import { Provider } from "react-redux";
+import { store, persistor } from "./store/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Login />,
   },
   {
-    path: '/home',
+    path: "/home",
     element: <Layout />,
     children: [
       {
         children: [
           {
             element: <Dashboard />,
-            index: true
+            index: true,
           },
           {
-            path: 'dashboard',
+            path: "dashboard",
             element: <Dashboard />,
           },
           {
-            path: 'admin',
+            path: "admin",
             element: <Admin />,
           },
           {
-            path: 'employes',
+            path: "employes",
             element: <h1>Hola desde empleados</h1>,
           },
           {
-            path: 'news',
+            path: "news",
             element: <h1>Hola desde novedades</h1>,
           },
         ],
@@ -44,8 +47,12 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
+    </Provider>
+  </React.StrictMode>
 );

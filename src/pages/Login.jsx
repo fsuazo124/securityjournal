@@ -1,24 +1,27 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
+import { login } from "../store/slices/users/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function Login() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState({});
+  const dispatch = useDispatch();
+  const login2 = useSelector((state) => state.user.isLoading);
+  console.log("LOG LOGIN", login2);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3000/sj/api/auth', {
+      const res = await axios.post("http://localhost:3000/sj/api/auth", {
         user_name: username,
-        password: password
+        password: password,
       });
-  
-      console.log(res);
-  
+
+      dispatch(login(res.data.meta));
+
       if (res.status === 200) {
-        window.location.href = '/home';
+        window.location.href = "/home";
       }
     } catch (error) {
       console.log(error);
@@ -141,16 +144,7 @@ function Login() {
                 type="submit"
                 className="block w-full bg-green-700 mt-5 py-2 rounded-2xl hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2"
               >
-                <Link
-                  className={`${
-                    location.pathname === "/inicio"
-                      ? ""
-                      : ""
-                  }`}
-                  to="home"
-                >
-                  Inicia Sesión
-                </Link>
+                Inicia Sesión
               </button>
               <div className="flex justify-between mt-4">
                 <span className="text-sm ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all">

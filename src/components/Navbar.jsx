@@ -1,4 +1,14 @@
+import { useDispatch } from "react-redux";
+import { logout } from "../store/slices/users/userSlice";
+import { useNavigate } from "react-router-dom";
+
 function Navbar() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleLogin = () => {
+    navigate("/");
+    dispatch(logout());
+  };
   return (
     <nav>
       <div className="">
@@ -15,12 +25,12 @@ function Navbar() {
             <div className="hidden md:flex justify-around space-x-4"></div>
           </div>
           <div className="flex space-x-4 items-center">
-            <a
-              href=""
+            <button
+              onClick={handleLogin}
               className="bg-red-600 px-2 py-2 rounded text-white font-bold hover:bg-red-500 md:text-xs text-xs uppercase"
             >
               Cerrar Sesión
-            </a>
+            </button>
           </div>
         </div>
       </div>
