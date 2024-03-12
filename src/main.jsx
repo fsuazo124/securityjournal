@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Layout from "./components/Layout";
 import Admin from "./pages/Admin";
@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import { Provider } from "react-redux";
 import { store, persistor } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
+import NotFound from "./components/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "*",
+    element: <NotFound />,
+ },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

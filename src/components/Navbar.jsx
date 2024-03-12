@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const handleLogin = () => {
     navigate("/");
     dispatch(logout());
   };
+  
   return (
     <nav>
       <div className="">

@@ -49,28 +49,28 @@ function Sidebar() {
                 : "transform -translate-x-full"
             }`}
           >
-            <div className="space-y-6 md:space-y-10 mt-10">
-              <h1 className="font-bold text-4xl text-center md:hidden">
-                D<span className="text-teal-600">.</span>
+            <div className="space-y-6 md:space-y-8 mt-10">
+              <h1 className="font-bold text-xl text-center md:hidden">
+              {user?.profile}<span className="text-teal-600">.</span>
               </h1>
               <h1 className="hidden md:block font-bold text-sm md:text-xl text-center">
-                {user?.firstName} {""} {user?.lastName}
+                {user?.profile}
                 <span className="text-teal-600">.</span>
               </h1>
               <div id="profile" className="space-y-3">
                 <img
-                  src="https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-                  alt="Avatar user"
-                  className="w-10 md:w-16 rounded-full mx-auto"
+                  src="/src/assets/user.png"
+                  alt="User"
+                  className="w-10 md:w-16 rounded-full mx-auto border-slate-950 shadow-sm"
                 />
                 <div>
-                  <h2 className="font-medium text-xs md:text-sm text-center text-teal-500">
-                    {user?.userName}
+                  <h2 className="font-medium md:text-base text-center text-sky-600">
+                    {user?.firstName} {''} {user?.lastName}
                   </h2>
-                  <div className="flex gap-3 justify-center">
+                  <div className="flex gap-3 justify-center items-center">
                     <div className="rounded-full h-2 w-2 bg-green-500" />
-                    <p className="text-xs text-gray-500 text-center">
-                      {user?.profile}
+                    <p className="text-sm text-gray-500 text-center font-semibold">
+                      {user?.userName}
                     </p>
                   </div>
                 </div>
