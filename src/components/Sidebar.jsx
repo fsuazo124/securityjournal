@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 function Sidebar() {
   const [sidenav, setSidenav] = useState(true);
   const user = useSelector((state) => state.user.usuarioLogguer);
-  const logueado = useSelector((state) => state.user.isLoading);
 
   useEffect(() => {
     const isSmallScreen = window.innerWidth <= 640;
@@ -97,8 +96,6 @@ function Sidebar() {
                 </button>
               </div>
               <div id="menu" className="flex flex-col space-y-2">
-                {/* EJEMPLO DE COMO DELIMITAR LO QUE PUEDA VER UN USUARIO */}
-                {user.profile !== "admin" && (
                   <Link
                     className={`${
                       location.pathname === "/dasboard"
@@ -119,8 +116,6 @@ function Sidebar() {
                       <span className="">Dashboard</span>
                     </div>
                   </Link>
-                )}
-
                 <Link
                   className={`${
                     location.pathname === "/novedades"
@@ -166,6 +161,7 @@ function Sidebar() {
                     <span className="">Empleados</span>
                   </div>
                 </Link>
+                {user.profile === "Admin" && (
                 <Link
                   className={`${
                     location.pathname === "/administracion"
@@ -185,7 +181,7 @@ function Sidebar() {
                     </svg>
                     <span className="">Administracion</span>
                   </div>
-                </Link>
+                </Link>)}
               </div>
             </div>
           </div>

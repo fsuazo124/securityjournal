@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 function Alert({ title, setShowAlert, setUserName, setPassword, setAlertTitle}) {
 
@@ -6,10 +6,7 @@ function Alert({ title, setShowAlert, setUserName, setPassword, setAlertTitle}) 
         const timeoutId = setTimeout(() => {
           setShowAlert(false);
           setAlertTitle("");
-        }, 10000);
-
-        setPassword("");
-        setUserName("");
+        }, 5000);
 
         return () => clearTimeout(timeoutId);
       }, []);
@@ -23,11 +20,11 @@ function Alert({ title, setShowAlert, setUserName, setPassword, setAlertTitle}) 
 
   return (
     <div
-      className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-20"
+      className="bg-red-100 border border-red-400 text-red-700 lg:px-4 lg:py-3 px-1 py-2 rounded relative -mb-40 lg:mb-20 "
       role="alert"
     >
-      <strong className="font-bold mr-5">Error</strong>
-      <span className="block sm:inline mr-10">{title}</span>
+      <strong className="block md:inline text-sm md:text-base font-bold mr-5">Error</strong>
+      <span className="text-xs md:text-base inline mr-10">{title}</span>
       <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
         <svg
           className="fill-current h-6 w-6 text-red-500"

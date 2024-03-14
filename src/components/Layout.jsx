@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 import Unauthorized from "./Unauthorized";
 
 function App() {
-  const user = useSelector((state) => state.user.usuarioLogguer);
+  const user = useSelector((state) => state.user.isLoading);
+
   if (!user) {
     return (
       <Unauthorized />
