@@ -29,7 +29,7 @@ function Navbar() {
           <div className="flex space-x-4 items-center">
             <button
               onClick={handleLogin}
-              className="bg-red-600 px-2 py-2 rounded text-white font-bold hover:bg-red-500 md:text-xs text-xs uppercase"
+              className="bg-red-600 px-2 py-2 rounded text-white md:font-bold hover:bg-red-500 font-medium md:text-xs text-xs uppercase"
             >
               Cerrar Sesión
             </button>
