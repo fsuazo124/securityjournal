@@ -9,21 +9,18 @@ function Admin() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetchUsersData(); 
+    getUsersData(); 
   }, []);
   
-  const fetchUsersData = async () => {
+  const getUsersData = async () => {
     try {
       const res = await axios.get("http://localhost:3000/sj/api/users/");
-      setUsers(res.data.data); // Almacena los datos de usuarios en el estado
-      console.log(users)
+      setUsers(res.data.data);
     } catch (error) {
       console.log("Error al obtener datos de usuarios:", error);
     }
   };
   
-
-
   const handleUsuariosClick = () => {
     setShowTableUsers(true);
     setShowTableProfiles(false);
@@ -48,19 +45,19 @@ function Admin() {
       <div className="p-4"></div>
       <div className="mt-2 flex border-b border-gray-200 dark:border-green-700">
         <button
-          className="text-base md:text-md cursor-base -mb-px h-10 text-blackspace-nowrap border-b-2 border-transparent bg-transparent px-6 py-2 text-center font-bold text-gray-700 hover:border-gray-400 focus:outline-none  sm:text-base"
+          className={`text-sm sm:text-base cursor-base sm:-mb-px h-10 text-blackspace-nowrap border-b-2 border-transparent bg-transparent px-6 py-2 text-center font-bold text-gray-700 hover:border-gray-400 focus:outline-none ${showTableUsers ? 'bg-gray-200 h-9 rounded-sm' : ''}`}
           onClick={handleUsuariosClick}
         >
           Usuarios
         </button>
         <button
-          className="text-base md:text-md cursor-base -mb-px h-10 text-blackspace-nowrap border-b-2 border-transparent bg-transparent px-6 py-2 text-center font-bold text-gray-700 hover:border-gray-400 focus:outline-none  sm:text-base"
+          className={`text-sm sm:text-base cursor-base sm:-mb-px h-10 text-blackspace-nowrap border-b-2 border-transparent bg-transparent px-6 py-2 text-center font-bold text-gray-700 hover:border-gray-400 focus:outline-none ${showTableProfiles ? 'bg-gray-200 h-9 rounded-sm' : ''}`}
           onClick={handlePerfilesClick}
         >
           Perfiles
         </button>
         <button
-          className="text-base md:text-md cursor-base -mb-px h-10 text-blackspace-nowrap border-b-2 border-transparent bg-transparent px-6 py-2 text-center font-bold text-gray-700 hover:border-gray-400 focus:outline-none  sm:text-base"
+          className={`text-sm sm:text-base cursor-base sm:-mb-px h-10 text-blackspace-nowrap border-b-2 border-transparent bg-transparent px-6 py-2 text-center font-bold text-gray-700 hover:border-gray-400 focus:outline-none ${showReports ? 'bg-gray-200 h-9 rounded-sm' : ''}`}
           onClick={handleReportesClick}
         >
           Reportes

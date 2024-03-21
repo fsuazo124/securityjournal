@@ -63,7 +63,7 @@ function Sidebar() {
                   className="w-10 md:w-16 rounded-full mx-auto border-slate-950 shadow-sm"
                 />
                 <div>
-                  <h2 className="font-medium md:text-base text-center text-sky-600">
+                  <h2 className="font-medium md:text-base text-center text-black sm:font-bold">
                     {user?.firstName} {''} {user?.lastName}
                   </h2>
                   <div className="flex gap-3 justify-center items-center">
