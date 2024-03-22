@@ -9,8 +9,13 @@ function Admin() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    getUsersData(); 
-  }, []);
+    const timer = setTimeout(() => {
+      getUsersData();
+    }, 10);
+
+    return () => clearTimeout(timer); 
+  }, []); 
+
   
   const getUsersData = async () => {
     try {
@@ -45,26 +50,26 @@ function Admin() {
       <div className="p-4"></div>
       <div className="mt-2 flex border-b border-gray-200 dark:border-green-700">
         <button
-          className={`text-sm sm:text-base cursor-base sm:-mb-px h-10 text-blackspace-nowrap border-b-2 border-transparent bg-transparent px-6 py-2 text-center font-bold text-gray-700 hover:border-gray-400 focus:outline-none ${showTableUsers ? 'bg-gray-200 h-9 rounded-sm' : ''}`}
+          className={`text-sm sm:text-base cursor-base sm:-mb-px h-10 text-blackspace-nowrap border-b-2 border-transparent bg-transparent px-6 py-2 text-center font-bold text-gray-700 hover:border-gray-400 focus:outline-none ${showTableUsers ? 'bg-slate-200 h-9 rounded-sm' : ''}`}
           onClick={handleUsuariosClick}
         >
           Usuarios
         </button>
         <button
-          className={`text-sm sm:text-base cursor-base sm:-mb-px h-10 text-blackspace-nowrap border-b-2 border-transparent bg-transparent px-6 py-2 text-center font-bold text-gray-700 hover:border-gray-400 focus:outline-none ${showTableProfiles ? 'bg-gray-200 h-9 rounded-sm' : ''}`}
+          className={`text-sm sm:text-base cursor-base sm:-mb-px h-10 text-blackspace-nowrap border-b-2 border-transparent bg-transparent px-6 py-2 text-center font-bold text-gray-700 hover:border-gray-400 focus:outline-none ${showTableProfiles ? 'bg-slate-200 h-9 rounded-sm' : ''}`}
           onClick={handlePerfilesClick}
         >
           Perfiles
         </button>
         <button
-          className={`text-sm sm:text-base cursor-base sm:-mb-px h-10 text-blackspace-nowrap border-b-2 border-transparent bg-transparent px-6 py-2 text-center font-bold text-gray-700 hover:border-gray-400 focus:outline-none ${showReports ? 'bg-gray-200 h-9 rounded-sm' : ''}`}
+          className={`text-sm sm:text-base cursor-base sm:-mb-px h-10 text-blackspace-nowrap border-b-2 border-transparent bg-transparent px-6 py-2 text-center font-bold text-gray-700 hover:border-gray-400 focus:outline-none ${showReports ? 'bg-slate-200 h-9 rounded-sm' : ''}`}
           onClick={handleReportesClick}
         >
           Reportes
         </button>
       </div>
       <div className="mt-14">
-        {showTableUsers && <TableUsers usersData={users} />}
+        {showTableUsers && <TableUsers usersData={users} setUserData={setUsers} />}
         {showTableProfiles && <h1>Hola desde perfiles</h1>}
         {showReports && <h1>Hola desde reportes</h1>}
       </div>
