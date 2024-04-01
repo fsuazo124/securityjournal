@@ -113,7 +113,7 @@ function Login() {
             <div className="flex justify-center lg:justify-start mt-6">
               <a
                 href="#"
-                className="hover:bg-indigo-700 hover:text-white hover:-translate-y-1 transition-all duration-500 bg-white text-indigo-800 mt-4 px-4 py-2 rounded-2xl font-bold mb-2"
+                className="hover:bg-gray-600 hover:text-white hover:-translate-y-1 transition-all duration-500 bg-white text-gray-600 mt-4 px-4 py-2 rounded-2xl font-bold mb-2"
               >
                 Comenzemos
               </a>

@@ -1,16 +1,15 @@
-import {useEffect} from 'react'
+import { useEffect } from "react";
 import { IoMdAlert } from "react-icons/io";
 
-function AlertUser({ title,setAlertTitle, setShowAlert }) {
+function AlertUser({ title, setAlertTitle, setShowAlert }) {
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setShowAlert(false);
+      setAlertTitle("");
+    }, 5000);
+    return () => clearTimeout(timeoutId);
+  }, []);
 
-    useEffect(() => {
-        const timeoutId = setTimeout(() => {
-          setShowAlert(false);
-          setAlertTitle("");
-        }, 5000);
-        return () => clearTimeout(timeoutId);
-      }, []);
-    
   const handleClose = () => {
     setShowAlert(false);
     setAlertTitle("");
@@ -18,14 +17,16 @@ function AlertUser({ title,setAlertTitle, setShowAlert }) {
 
   return (
     <div
-      className="flex  bg-green-200 border border-gray-300 text-gray-600 md:px-2 md:py-2 md:-mt-12 md:mb-2 w-max rounded relative"
+      className="flex bg-green-200 border border-gray-300 text-gray-600  mb-10 -mt-10 md:px-2 md:py-2 md:-mt-12 md:mb-2 w-max rounded relative"
       role="alert"
     >
-      <strong className="inline text-sm md:text-lg font-bold ml-1 w-8"><IoMdAlert /></strong>
-      <span className="text-xs md:text-sm inline mr-10">{title}</span>
+      <strong className="inline text-sm md:text-lg font-bold ml-1 w-8">
+        <IoMdAlert />
+      </strong>
+      <span className="text-sm md:text-sm inline mr-10">{title}</span>
       <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
         <svg
-          className="fill-current -mt-1 h-6 w-6 text-gray-500"
+          className="fill-current -mt-3 sm:-mt-1 h-6 w-6 text-gray-500"
           role="button"
           onClick={handleClose}
           xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +37,7 @@ function AlertUser({ title,setAlertTitle, setShowAlert }) {
         </svg>
       </span>
     </div>
-  )
+  );
 }
 
-export default AlertUser
+export default AlertUser;

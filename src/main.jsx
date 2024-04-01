@@ -4,7 +4,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/Login";
 import Layout from "./components/Layout";
-import Admin from "./pages/Admin";
+import Admin from "./pages/Admin/Admin";
 import News from "./pages/News";
 import Employes from "./pages/Employes";
 import Dashboard from "./pages/Dashboard";

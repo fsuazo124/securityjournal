@@ -10,7 +10,7 @@ function Navbar() {
     navigate("/");
     dispatch(logout());
   };
-  
+
   return (
     <nav>
       <div className="">
