@@ -2,17 +2,19 @@ import { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { LiaUserCheckSolid } from "react-icons/lia";
 import { LiaUserSlashSolid } from "react-icons/lia";
+import { LiaUserEditSolid } from "react-icons/lia";
 import AlertUser from "./AlertUser";
 import Modal from "./Modal"
 import axios from "axios";
 
-const TableUsers = ({ usersData, setUsersData }) => {
+const TableUsers = ({ usersData, setUsersData, getUsersData }) => {
   const [totalSelect, setTotalSelect] = useState(5);
   const [filterStatus, setFilterStatus] = useState("Todos");
   const [searchTerm, setSearchTerm] = useState("");
   const [titleAlert, setTitleAlert] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const handleSelectChange = (event) => {
     const newValue = parseInt(event.target.value);
@@ -77,11 +79,12 @@ const TableUsers = ({ usersData, setUsersData }) => {
     .filter((user) => {
       const fullName = `${user.first_name} ${user.last_name}`.toLowerCase();
       const userName = user.user_name.toLowerCase();
-
+      const profile = user.profile.title.toLowerCase();
       if (filterStatus === "Todos") {
         return (
           userName.includes(searchTerm.toLowerCase()) ||
-          fullName.includes(searchTerm.toLowerCase())
+          fullName.includes(searchTerm.toLowerCase()) ||
+          profile.includes(searchTerm.toLowerCase())
         );
       }
 
@@ -103,7 +106,7 @@ const TableUsers = ({ usersData, setUsersData }) => {
           />
         )}
       </div>
-      {showModal && <Modal onClose={() => setShowModal(false)} />}
+      {showModal && <Modal getUsersData={getUsersData} onClose={() => setShowModal(false)} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>}
       <div className="">
         <div className="">
           <div className="flex justify-between items-center -mt-5 sm:-mt-1">
@@ -151,6 +154,8 @@ const TableUsers = ({ usersData, setUsersData }) => {
                 </div>
                 <div className="relative invisible sm:visible ">
                   <input
+                    id="buscar"
+                    name="buscar"
                     placeholder="Buscar"
                     className="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 h-9 w-0 sm:w-40 lg:w-96 bg-white text-sm placeholder-gray-300 text-gray-500 focus:bg-white focus:text-gray-600 focus:outline-none"
                     onChange={handleSearchChange}
@@ -174,7 +179,7 @@ const TableUsers = ({ usersData, setUsersData }) => {
               </p>
             ) : (
               <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
-                <div style={{ overflowY: "auto", maxHeight: "400px" }}>
+                <div style={{ overflowY: "auto", maxHeight: "500px" }}>
                   <table className="min-w-full leading-normal">
                     <thead>
                       <tr>
@@ -237,16 +242,26 @@ const TableUsers = ({ usersData, setUsersData }) => {
                             <div className="flex justify-start items-center">
                               <span className="relative inline-block ">
                                 <LiaUserSlashSolid
-                                  className="h-6 w-6 icon hover:scale-125 hover:text-red-700"
+                                  className="h-5 w-5 lg:h-6 lg:w-6 icon hover:scale-125 hover:text-red-700"
                                   title="Deshabilitar usuario"
                                   onClick={() => handleDisabledUser(user.id)}
                                 />
                               </span>
                               <span className="relative inline-block">
                                 <LiaUserCheckSolid
-                                  className="h-6 w-6 ml-5  hover:scale-125 hover:text-blue-700"
+                                  className="h-5 w-5 lg:h-6 lg:w-6 ml-2  hover:scale-125 hover:text-blue-700"
                                   title="Habilitar usuario"
                                   onClick={() => handleEnabledUser(user.id)}
+                                />
+                              </span>
+                              <span className="relative inline-block ">
+                                <LiaUserEditSolid
+                                  className="h-5 w-5 lg:h-6 lg:w-6 ml-2 icon hover:scale-125 hover:text-red-700"
+                                  title="Editar usuario"
+                                  onClick={() => {
+                                    setSelectedUser(user);
+                                    setShowModal(true);
+                                  }}
                                 />
                               </span>
                             </div>
@@ -258,16 +273,8 @@ const TableUsers = ({ usersData, setUsersData }) => {
                 </div>
                 <div className="px-4 sm:px-5 py-5 bg-white border-t flex flex-col sm:flex-row items-center justify-between">
                   <span className="text-xs sm:text-sm text-gray-600">
-                    Mostrando 1 a {filteredUsers.length} entradas
+                    Mostrando 1 a {totalSelect} de {usersData.length} entradas
                   </span>
-                  <div className="inline-flex mt-2 sm:mt-0">
-                    <button className="text-xs sm:text-sm bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded-sm">
-                      Atrás
-                    </button>
-                    <button className="text-xs sm:text-sm bg-gray-200 ml-1 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded-sm">
-                      Siguiente
-                    </button>
-                  </div>
                 </div>
               </div>
             )}

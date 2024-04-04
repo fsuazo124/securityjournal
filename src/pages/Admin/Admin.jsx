@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import TableUsers from "./TableUsers";
 import axios from "axios";
+import TableProfiles from "./TableProfiles";
 
 function Admin() {
   const [showTableUsers, setShowTableUsers] = useState(false);
   const [showTableProfiles, setShowTableProfiles] = useState(false);
   const [showReports, setShowReports] = useState(false);
   const [users, setUsers] = useState([]);
+  const [profiles, setProfiles] = useState([]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -18,10 +20,27 @@ function Admin() {
 
   const getUsersData = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/sj/api/users/");
+      const res = await axios.get("http://localhost:3000/sj/api/users");
       setUsers(res.data.data);
     } catch (error) {
       console.log("Error al obtener datos de usuarios:", error);
+    }
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      getProfilesData();
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const getProfilesData = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/sj/api/users/profile");
+      setProfiles(res.data.data);
+    } catch (error) {
+      console.log("Error al obtener datos de perfiles:", error);
     }
   };
 
@@ -75,9 +94,11 @@ function Admin() {
       </div>
       <div className="mt-14">
         {showTableUsers && (
-          <TableUsers usersData={users} setUsersData={setUsers} />
+          <TableUsers usersData={users} setUsersData={setUsers} getUsersData={getUsersData} />
         )}
-        {showTableProfiles && <h1>Hola desde perfiles</h1>}
+        {showTableProfiles && (
+          <TableProfiles profilesData={profiles} setProfilesData={setProfiles} getProfilesData={getProfilesData} />
+        )}
         {showReports && <h1>Hola desde reportes</h1>}
       </div>
     </div>

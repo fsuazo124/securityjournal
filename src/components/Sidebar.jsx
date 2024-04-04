@@ -77,6 +77,8 @@ function Sidebar() {
               </div>
               <div className="flex border-2 border-gray-200 rounded-md focus-within:ring-2 ring-green-200">
                 <input
+                  id="text"
+                  name="text"
                   type="text"
                   className="w-full rounded-tl-md rounded-bl-md px-2 py-3 text-sm text-gray-600 focus:outline-none"
                   placeholder="Buscar"
@@ -138,7 +140,7 @@ function Sidebar() {
                         clipRule="evenodd"
                       ></path>
                     </svg>
-                    <span className="ml-1">Table</span>
+                    <span className="ml-1">Novedades</span>
                   </div>
                 </Link>
 
@@ -162,7 +164,7 @@ function Sidebar() {
                     <span className="ml-1">Empleados</span>
                   </div>
                 </Link>
-                {user.profile === "Admin" && (
+                {user.profile === "Administrador" && (
                   <Link
                     className={`${
                       location.pathname === "/administracion"
