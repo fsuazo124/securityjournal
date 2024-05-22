@@ -24,7 +24,6 @@ function Login() {
       if (res.status === 200) {
         window.location.href = "/home";
       }
-      
     } catch (error) {
       if (error.response) {
         switch (error.response.status) {
@@ -35,7 +34,11 @@ function Login() {
             setPassword("");
             break;
           case 400:
-            setAlertTitle(`${error.response.data.message[0]} - ${error.response.data.message[1] || ""}`);
+            setAlertTitle(
+              `${error.response.data.message[0]} - ${
+                error.response.data.message[1] || ""
+              }`
+            );
             setShowAlert(true);
             break;
           case 403:
@@ -52,7 +55,7 @@ function Login() {
         console.log("Error desconocido:", error);
       }
     }
-  }
+  };
 
   return (
     <div>
@@ -67,7 +70,7 @@ function Login() {
                   className="w-10 h-10"
                 />
                 <h1 className="text-xl lg:text-2xl font-bold cursor-pointer">
-                  Grupo AyR
+                  InSisPer-Tic
                 </h1>
               </div>
               <div className="items-end mt-20">
@@ -100,15 +103,15 @@ function Login() {
 
           <div className="w-full mx-auto px-20 flex-col items-center space-y-6">
             <img
-              src="/src/assets/ayr_white.png"
+              src="/src/assets/security.png"
               alt="Grupo AyR "
               className="w-28 mx-2"
             />
             <h1 className="text-white font-bold text-4xl font-sans">
-              Seguridad y Validación
+              Gestión Integral de Seguridad y Asistencia
             </h1>
             <p className="text-white mt-1">
-              Registro de novedades, accesos y entrada/salida de personal
+              Registro de incidencias, accesos y entrada/salida de personal
             </p>
             <div className="flex justify-center lg:justify-start mt-6">
               <a
@@ -140,8 +143,14 @@ function Login() {
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path d="M17 20a5 5 0 1 1-10 0 5 5 0 0 1 10 0zM12 12a9 9 0 0 1-9-9 8.959 8.959 0 0 1 4.5-1.207A9 9 0 0 1 12 12z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
                 </svg>
+
                 <input
                   id="username"
                   className=" pl-2 w-full outline-none border-none"
@@ -202,8 +211,7 @@ function Login() {
         <div className="container px-6 py-8 mx-auto">
           <div className="flex flex-col items-center text-center">
             <p className="max-w-md mx-auto mt-4 text-gray-400">
-              Grupo AyR, Colonia San Miguel, frente a Molinos de Honduras,
-              Comayagua, Honduras
+            InSisPer-Tic, Colonia San Pablo, Frente a Tiendas El Jordan, La Paz, La Paz, Honduras
             </p>
           </div>
           <hr className="my-10 border-gray-700" />

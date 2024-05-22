@@ -22,7 +22,7 @@ function Navbar() {
               className="w-8 h-8 md:w-10 md:h-10"
             />
             <h1 className="text-base md:text-xl lg:text-2xl font-bold cursor-pointer">
-              Grupo AyR
+              InSisPer-Tic
             </h1>
             <div className="hidden md:flex justify-around space-x-4"></div>
           </div>
